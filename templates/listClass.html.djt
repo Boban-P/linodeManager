@@ -1,0 +1,11 @@
+{% extends "index.html.djt" %}
+{% block content %}
+    <div>
+    {% for instance in list %}
+        <div class="row">
+            <a href="{% url 'viewVM' instance.pk %}">{{instance.title}}</a>
+        </div>
+    {% endfor %}
+    </div>
+    {{ info }}
+{% endblock %}

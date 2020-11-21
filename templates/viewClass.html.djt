@@ -1,0 +1,27 @@
+{% extends "index.html.djt" %}
+{% block content %}
+    <h2>{{ class.title }}</h2>
+
+    {% if active %}
+        <div class="extendServer">
+            <div class="timeRemaining">{{remaining}}</div>
+            <div class="extendServer"><a href="{% url 'extendVM' class.pk %}"> Extend Time </a></div>
+            <div class="stopServer"><a href="{% url 'stopVM' class.pk %}"> Stop Instance </a></div>
+        </div>
+        <div class="server-url"><a href="https://{{domain}}">https://{{domain}}</a></div>
+    {% else %}
+        <div class="startServer">No server running <a href="{% url 'startVM' class.pk %}"> Deploy new Instance </a></div>
+    {% endif %}
+    <div class="history">
+    {% for instance in Instances %}
+        <div class="intance {{ instance.pk }} instance-{{ instance.pk }}">
+            <div class="stoped-instance">
+                <div class="title">{{instance.lastrun}}</div>
+                {% if not active %}
+                <div class="action"><a href="{% url 'restartVM' class.pk instance.pk %}">Restart server</a></div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}
